@@ -14,4 +14,15 @@ router.get('/', (req, res) => {
         })
 });
 
+router.get('/:id', (req, res) => {
+
+    const id = req.params.id;
+    projectsDb
+        .get(id)
+        .then((response) => response.length === 0
+            ? res.status(404).send({error: `Project not found`})
+            : res.status(200).send(response))
+        .catch(() => res.status(500).send({ error: 'Error fetching projects' }))
+});
+
 module.exports = router;
