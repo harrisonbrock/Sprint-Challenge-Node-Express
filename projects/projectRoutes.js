@@ -58,4 +58,26 @@ router.post("/", (req, res) => {
     }
 });
 
+router.put('/:id', (req, res) => {
+   const id =  req.params.id;
+   const project = req.body;
+
+   if (
+       project.name &&
+       project.name.length <= 128 &&
+       (project.description && project.description.length <= 128))
+   {
+       projectsDb.update(id, project)
+           .then(response => {
+               res.status(200).json(response);
+           })
+           .catch(error => {
+               res.status(500).json({ error: "Error occured" });
+           });
+   } else {
+       res.status(400).json({ error: "Name and Description can't be blank" });
+   }
+
+});
+
 module.exports = router;
