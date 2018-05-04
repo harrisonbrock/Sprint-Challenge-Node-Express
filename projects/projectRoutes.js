@@ -38,4 +38,24 @@ router.delete('/:id', (req, res) => {
     })
 });
 
+router.post("/", (req, res) => {
+    const project = req.body;
+    if (!project.name || !project.description) {
+        res.status(400).json({ error: "Please specify name and description" });
+    } else if (project.name.length > 128 || project.description.length > 128) {
+        res
+            .status(400)
+            .json({ error: "Name and description can't exceed 128 characters" });
+    } else {
+        projectsDb
+            .insert(project)
+            .then(response => {
+                res.status(200).json(response);
+            })
+            .catch(error => {
+                res.status(500).json({ error: "Error occured" });
+            });
+    }
+});
+
 module.exports = router;

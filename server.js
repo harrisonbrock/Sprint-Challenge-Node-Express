@@ -1,14 +1,15 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const server = express();
+const express = require("express");
+const helmet = require("helmet");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+server = express();
 
 const projectRoutes = require('./projects/projectRoutes');
 
 
 
 
-server.use(express.json());
+server.use(bodyParser.json());
 
 server.use(cors());
 server.use(helmet());
