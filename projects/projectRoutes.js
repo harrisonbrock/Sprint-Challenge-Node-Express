@@ -25,6 +25,17 @@ router.get('/:id', (req, res) => {
         .catch(() => res.status(500).send({ error: 'Error fetching projects' }))
 });
 
+router.get('/:id/actions', (req, res) => {
+
+    const id = req.params.id;
+    projectsDb
+        .getProjectActions(id)
+        .then((response) => response.length === 0
+            ? res.status(404).send({error: `Project not found`})
+            : res.status(200).send(response))
+        .catch(() => res.status(500).send({ error: 'Error fetching projects' }))
+});
+
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
 
