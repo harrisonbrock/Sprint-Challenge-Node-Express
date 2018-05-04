@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
         .then((response) => response.length === 0
             ? res.status(404).send({error: `Project not found`})
             : res.status(200).send(response))
-        .catch(() => res.status(500).send({ error: 'Error fetching actionss' }))
+        .catch(() => res.status(500).send({ error: 'Cannot have Action' }))
 });
 
 router.post('/', (req, res) => {
@@ -46,4 +46,18 @@ router.post('/', (req, res) => {
             })
     }
 });
+
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    actionsDb.remove(id)
+        .then((response) => response === 0
+            ? res.status(404).send({ error: `Project with id ${id} not found` })
+            : res.status(200).send({ message: `Project with id ${id} deleted` }))
+        .catch(err => {
+        }).catch(err => {
+        res.status(500).send({error: 'problem'});
+    })
+});
+
 module.exports = router;
