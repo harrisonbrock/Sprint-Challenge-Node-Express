@@ -5,7 +5,7 @@ const cors = require("cors");
 server = express();
 
 const projectRoutes = require('./projects/projectRoutes');
-
+const actionRoutes = require('./projectActions/actionsRoutes');
 
 
 
@@ -14,6 +14,7 @@ server.use(bodyParser.json());
 server.use(cors());
 server.use(helmet());
 server.use('/api/projects', projectRoutes);
+server.use('/api/actions', actionRoutes);
 
 
 
