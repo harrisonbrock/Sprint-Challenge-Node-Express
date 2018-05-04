@@ -25,4 +25,17 @@ router.get('/:id', (req, res) => {
         .catch(() => res.status(500).send({ error: 'Error fetching projects' }))
 });
 
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    projectsDb.remove(id)
+        .then((response) => response === 0
+            ? res.status(404).send({ error: `Project with id ${id} not found` })
+            : res.status(200).send({ message: `Project with id ${id} deleted` }))
+        .catch(err => {
+        }).catch(err => {
+        res.status(500).send({error: 'problem'});
+    })
+});
+
 module.exports = router;
